@@ -14,11 +14,31 @@ import Logo from "../assets/icons/logo.svg";
             class="bg-transparent border-0 p-2 text-inherit cursor-pointer"
             aria-label="Ouvrir le menu"
         >
-            <img
-                src="src/assets/icons/menu.svg"
-                alt="menu"
-                class="w-6 h-6"
-            />
+            <img src="src/assets/icons/menu.svg" alt="menu" class="w-6 h-6" />
         </button>
     </div>
 </header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="menu-header">
+        <a href="/" class="menu-logo">
+            <img
+                src="assets/icons/logo.svg"
+                alt="Festicloze"
+                style="height:32px;width:auto;"
+            />
+            <span>Festicloze</span>
+        </a>
+        <button class="menu-close" id="menuClose" aria-label="Fermer le menu"
+            ><img src="assets/icons/close.svg" alt="fermer" /></button
+        >
+    </div>
+    <ul class="menu-list">
+        <li><a href="programmes.html">Programmes</a></li>
+        <li><a href="artistes.html">Artistes</a></li>
+        <li><a href="scenes.html">Scènes</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="infos-pratiques.html">Infos pratiques</a></li>
+    </ul>
+</nav>

@@ -5,6 +5,8 @@
     /* #E8C4A7 */
     --color-bright-yellow: oklch(0.9636 0.0328 107);
     /* #F5F5DC */
+    --color-text: oklch(0.972 0.0427 94.07);
+    /* #FFF6D6 */
     --color-red: oklch(0.2758 0.0894 12.97);
     /* #4A0E1B */
     --color-yellow: oklch(0.7665 0.1387 91.06);
@@ -26,7 +28,7 @@
     }
 
     body {
-        font-family: 'Playfair Display Variable', serif;
+        font-family: 'Inter Variable', sans-serif;
     }
 
     h1 {
@@ -39,6 +41,12 @@
 
     h3 {
         @apply my-4 text-xl leading-tight font-[--font-family];
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: 'Playfair Display Variable', serif;
     }
 }
 
