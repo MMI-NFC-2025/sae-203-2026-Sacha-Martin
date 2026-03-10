@@ -1,12 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: oklch(0.8623 0.1114 72.31);
-    /* #FFC67D */
-    --color-primary-dark: oklch(0.7652 0.1752 62.57);
-    /* #FF9500 */
-    --color-secondary-dark: oklch(0.4798 0.1098 62.67);
-    /* #884D00 */
+    --color-beige: oklch(0.844 0.0567 60.78);
+    /* #E8C4A7 */
+    --color-bright-yellow: oklch(0.9636 0.0328 107);
+    /* #F5F5DC */
+    --color-red: oklch(0.2758 0.0894 12.97);
+    /* #4A0E1B */
+    --color-yellow: oklch(0.7665 0.1387 91.06);
+    /* #D4AF37 */
+    --color-black: oklch(0.2178 0 0);
+    /* #1A1A1A */
+    --color-black: oklch(0.4176 0.1515 10.7);
+    /* #8B1538 */
 
 
     --font-family: 'Cantora One', sans-serif;
@@ -17,6 +23,10 @@
 @layer base {
     body {
         @apply font-[--font-family] text-base leading-normal;
+    }
+
+    body {
+        font-family: 'Playfair Display Variable', serif;
     }
 
     h1 {
