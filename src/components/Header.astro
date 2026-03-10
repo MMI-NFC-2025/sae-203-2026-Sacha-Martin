@@ -1,107 +1,44 @@
 ---
-const navLinks = [
-  { href: "/", label: "Accueil" },
-  { href: "/artistes", label: "Artistes" },
-  { href: "/programme", label: "Programme" },
-  { href: "/apropos", label: "À propos" },
-  { href: "/contact", label: "Contact" },
-];
-
-const currentPath = Astro.url.pathname;
+// Header simple pour Festicloze
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-burgundy/95 backdrop-blur-sm">
-  <div class="container mx-auto px-4 md:px-6">
-    <div class="flex items-center justify-between h-16 md:h-20">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2">
-        <img src="/images/logo.svg" alt="Festicloze" class="h-10 md:h-12 w-auto" />
-        <span class="text-cream text-xl md:text-2xl font-bold">Festicloze</span>
-      </a>
-
-      <!-- Navigation Desktop -->
-      <nav class="hidden md:flex items-center gap-8">
-        {navLinks.map((link) => (
-          <a
-            href={link.href}
-            class={`text-cream hover:text-gold transition-colors duration-300 ${
-              currentPath === link.href ? "text-gold border-b-2 border-gold" : ""
-            }`}
-          >
-            {link.label}
-          </a>
-        ))}
-        <a href="/billetterie" class="btn-primary">Billetterie</a>
-      </nav>
-
-      <!-- Mobile Menu Button -->
-      <button
-        id="mobile-menu-btn"
-        class="md:hidden text-cream p-2"
-        aria-label="Menu"
-      >
-        <svg
-          id="menu-icon"
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-        <svg
-          id="close-icon"
-          class="w-6 h-6 hidden"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
-    </div>
+<header class="bg-rouge text-blanc p-4">
+  <div class="flex justify-between items-center max-w-6xl mx-auto">
+    
+    <!-- Logo -->
+    <a href="/" class="text-2xl font-bold text-or">Festicloze</a>
+    
+    <!-- Menu burger mobile -->
+    <button id="menu-btn" class="md:hidden text-blanc text-2xl">
+      &#9776;
+    </button>
+    
+    <!-- Navigation desktop -->
+    <nav class="hidden md:flex gap-6">
+      <a href="/" class="text-blanc hover:text-or">Accueil</a>
+      <a href="/artistes" class="text-blanc hover:text-or">Artistes</a>
+      <a href="/programme" class="text-blanc hover:text-or">Programme</a>
+      <a href="/apropos" class="text-blanc hover:text-or">A propos</a>
+      <a href="/contact" class="text-blanc hover:text-or">Contact</a>
+    </nav>
   </div>
-
-  <!-- Mobile Navigation -->
-  <nav
-    id="mobile-menu"
-    class="md:hidden hidden bg-burgundy border-t border-gold/20"
-  >
-    <div class="container mx-auto px-4 py-4 flex flex-col gap-4">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class={`text-cream hover:text-gold transition-colors duration-300 py-2 ${
-            currentPath === link.href ? "text-gold" : ""
-          }`}
-        >
-          {link.label}
-        </a>
-      ))}
-      <a href="/billetterie" class="btn-primary text-center mt-2">Billetterie</a>
-    </div>
+  
+  <!-- Menu mobile -->
+  <nav id="menu-mobile" class="hidden md:hidden flex-col gap-4 mt-4 text-center">
+    <a href="/" class="text-blanc hover:text-or block py-2">Accueil</a>
+    <a href="/artistes" class="text-blanc hover:text-or block py-2">Artistes</a>
+    <a href="/programme" class="text-blanc hover:text-or block py-2">Programme</a>
+    <a href="/apropos" class="text-blanc hover:text-or block py-2">A propos</a>
+    <a href="/contact" class="text-blanc hover:text-or block py-2">Contact</a>
   </nav>
 </header>
 
 <script>
-  const menuBtn = document.getElementById("mobile-menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIcon = document.getElementById("menu-icon");
-  const closeIcon = document.getElementById("close-icon");
-
-  menuBtn?.addEventListener("click", () => {
-    mobileMenu?.classList.toggle("hidden");
-    menuIcon?.classList.toggle("hidden");
-    closeIcon?.classList.toggle("hidden");
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu-mobile');
+  
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex');
   });
 </script>

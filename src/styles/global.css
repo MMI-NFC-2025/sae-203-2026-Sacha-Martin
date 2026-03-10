@@ -1,53 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-    /* Couleurs principales - Theme Baroque Noel */
-    --color-burgundy: #4A0E1B;
-    --color-gold: #D4AF37;
-    --color-cream: #F5F5DC;
-    --color-beige: #E8C4A7;
-    --color-dark: #1A1A1A;
-    --color-white: #FFFFFF;
-
-    /* Font */
-    --font-sans: 'Playfair Display Variable', serif;
-
-    --my-grid: repeat(12, minmax(0, 88px));
-}
-
-@layer base {
-    body {
-        @apply bg-cream text-dark;
-        font-family: 'Playfair Display Variable', serif;
-    }
-
-    h1 {
-        @apply text-4xl font-bold leading-tight md:text-5xl lg:text-6xl;
-    }
-
-    h2 {
-        @apply text-2xl font-bold leading-tight md:text-3xl lg:text-4xl;
-    }
-
-    h3 {
-        @apply text-xl font-semibold leading-tight;
-    }
-
-    p {
-        @apply leading-relaxed;
-    }
-}
-
-@layer components {
-    .grille {
-        @apply px-6 lg:grid lg:grid-cols-(--my-grid) lg:justify-center lg:gap-8;
-    }
-
-    .btn-primary {
-        @apply inline-block bg-gold text-dark px-6 py-3 font-semibold transition-all duration-300 hover:bg-burgundy hover:text-cream;
-    }
-
-    .btn-secondary {
-        @apply inline-block border-2 border-gold text-gold px-6 py-3 font-semibold transition-all duration-300 hover:bg-gold hover:text-dark;
-    }
+    --color-rouge: #8B0000;
+    --color-or: #DAA520;
+    --color-noir: #1a1a1a;
+    --color-blanc: #ffffff;
+    --color-gris: #f5f5f5;
 }

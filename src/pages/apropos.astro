@@ -1,171 +1,51 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const lieux = [
-  {
-    name: "Temple Saint-Martin",
-    description: "Edifice historique du XVIe siecle, le Temple Saint-Martin offre une acoustique exceptionnelle pour les concerts de musique baroque.",
-    image: "/images/eglise.jpg",
-  },
-  {
-    name: "Eglise Saint-Maimboeuf",
-    description: "Cette eglise du XIXe siecle au style neo-gothique accueille les concerts principaux du festival dans un cadre majestueux.",
-    image: "/images/eglise.jpg",
-  },
-  {
-    name: "Chateau des Ducs",
-    description: "Residence des ducs de Wurtemberg, ce chateau historique accueille les evenements intimes et les rencontres avec les artistes.",
-    image: "/images/montbeliard.jpg",
-  },
-];
-
-const equipe = [
-  { name: "Sophie Badarous", role: "Directrice artistique" },
-  { name: "Marc Dubois", role: "Directeur technique" },
-  { name: "Claire Martin", role: "Responsable communication" },
-  { name: "Jean Lefevre", role: "Coordinateur benevoles" },
-];
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="A propos - Festicloze">
-  <!-- Hero Section -->
-  <section class="relative min-h-96 flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img 
-        src="/images/montbeliard.jpg" 
-        alt="Montbeliard en hiver" 
-        class="w-full h-full object-cover"
-      />
-      <div class="absolute inset-0 bg-burgundy/70"></div>
-    </div>
-    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto py-16">
-      <h1 class="text-cream mb-4">A propos de Festicloze</h1>
-      <p class="text-cream/70 text-lg">
-        Decouvrez l'histoire et l'equipe derriere le festival.
-      </p>
-    </div>
+<Layout title="A propos">
+  <Header />
+  
+  <!-- Titre -->
+  <section class="bg-rouge text-blanc text-center py-12 px-4">
+    <h2 class="text-3xl font-bold">A propos</h2>
   </section>
 
-  <!-- About Section -->
-  <section class="py-16 md:py-24 bg-cream">
-    <div class="container mx-auto px-4 md:px-6">
-      <div class="max-w-3xl mx-auto">
-        <h2 class="text-burgundy mb-6 text-center">Notre histoire</h2>
-        <div class="prose prose-lg max-w-none text-dark/80 space-y-4">
-          <p>
-            Ne en 2015 de la passion d'un groupe de musiciens et d'amateurs de musique baroque, 
-            <strong>Festicloze</strong> est devenu au fil des annees un rendez-vous incontournable 
-            de la scene musicale regionale.
-          </p>
-          <p>
-            Chaque annee, pendant les quatre jours precedant Noel, le festival transforme 
-            Montbeliard en un ecrin de musique baroque. Dans les eglises, temples et lieux 
-            patrimoniaux de la ville, des artistes de renommee internationale et des ensembles 
-            locaux se produisent pour celebrer la magie de Noel a travers la musique des XVIIe 
-            et XVIIIe siecles.
-          </p>
-          <p>
-            Notre mission est de rendre la musique baroque accessible a tous, en proposant des 
-            concerts dans des lieux d'exception, des masterclasses ouvertes au public, et des 
-            animations pour toute la famille.
-          </p>
-        </div>
+  <!-- Contenu -->
+  <section class="py-12 px-4 bg-gris">
+    <div class="max-w-3xl mx-auto">
+      
+      <!-- Histoire -->
+      <div class="bg-blanc p-6 mb-8">
+        <h3 class="text-2xl font-bold text-rouge mb-4">Notre histoire</h3>
+        <p class="mb-4">
+          Ne en 2015 de la passion d'un groupe de musiciens et d'amateurs de musique baroque, 
+          Festicloze est devenu au fil des annees un rendez-vous incontournable de la scene musicale regionale.
+        </p>
+        <p>
+          Chaque annee, pendant les quatre jours precedant Noel, le festival transforme 
+          Montbeliard en un ecrin de musique baroque.
+        </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Values Section -->
-  <section class="py-16 bg-burgundy">
-    <div class="container mx-auto px-4 md:px-6">
-      <h2 class="text-cream text-center mb-12">Nos valeurs</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
-            </svg>
-          </div>
-          <h3 class="text-gold font-bold mb-2">Excellence artistique</h3>
-          <p class="text-cream/70 text-sm">
-            Nous selectionnons des artistes de talent pour offrir des concerts de qualite exceptionnelle.
-          </p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-          </div>
-          <h3 class="text-gold font-bold mb-2">Accessibilite</h3>
-          <p class="text-cream/70 text-sm">
-            La musique baroque pour tous, avec des tarifs accessibles et des animations pour toutes les generations.
-          </p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-            </svg>
-          </div>
-          <h3 class="text-gold font-bold mb-2">Patrimoine</h3>
-          <p class="text-cream/70 text-sm">
-            Valoriser le patrimoine architectural de Montbeliard a travers la musique.
-          </p>
-        </div>
+      
+      <!-- Lieux -->
+      <div class="bg-blanc p-6 mb-8">
+        <h3 class="text-2xl font-bold text-rouge mb-4">Les lieux</h3>
+        <ul class="list-disc list-inside">
+          <li class="mb-2">Temple Saint-Martin</li>
+          <li class="mb-2">Eglise Saint-Maimboeuf</li>
+          <li class="mb-2">Chateau des Ducs</li>
+        </ul>
       </div>
-    </div>
-  </section>
-
-  <!-- Venues Section -->
-  <section class="py-16 md:py-24 bg-beige">
-    <div class="container mx-auto px-4 md:px-6">
-      <h2 class="text-burgundy text-center mb-12">Les lieux du festival</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        {lieux.map((lieu) => (
-          <div class="bg-cream rounded-lg overflow-hidden shadow-md">
-            <div class="aspect-video overflow-hidden">
-              <img 
-                src={lieu.image} 
-                alt={lieu.name}
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-burgundy font-bold mb-2">{lieu.name}</h3>
-              <p class="text-dark/70 text-sm">{lieu.description}</p>
-            </div>
-          </div>
-        ))}
+      
+      <!-- Image -->
+      <div>
+        <img src="/images/montbeliard.jpg" alt="Montbeliard" class="w-full h-64 object-cover">
       </div>
+      
     </div>
   </section>
 
-  <!-- Team Section -->
-  <section class="py-16 bg-cream">
-    <div class="container mx-auto px-4 md:px-6">
-      <h2 class="text-burgundy text-center mb-12">L'equipe</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-        {equipe.map((membre) => (
-          <div class="text-center">
-            <div class="w-20 h-20 bg-burgundy rounded-full mx-auto mb-3 flex items-center justify-center">
-              <span class="text-gold text-2xl font-bold">{membre.name.charAt(0)}</span>
-            </div>
-            <h3 class="text-burgundy font-semibold text-sm">{membre.name}</h3>
-            <p class="text-dark/60 text-xs">{membre.role}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-16 bg-dark">
-    <div class="container mx-auto px-4 md:px-6 text-center">
-      <h2 class="text-cream mb-4">Une question ?</h2>
-      <p class="text-cream/70 mb-8 max-w-2xl mx-auto">
-        N'hesitez pas a nous contacter pour toute question concernant le festival.
-      </p>
-      <a href="/contact" class="btn-primary">Nous contacter</a>
-    </div>
-  </section>
+  <Footer />
 </Layout>

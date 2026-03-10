@@ -1,209 +1,81 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const programme = [
-  {
-    date: "20",
-    month: "Decembre",
-    day: "Samedi",
-    title: "Concert d'ouverture",
-    events: [
-      {
-        time: "18h00",
-        title: "Ouverture des portes",
-        description: "Accueil du public et visite libre du lieu",
-        location: "Temple Saint-Martin",
-      },
-      {
-        time: "19h00",
-        title: "Concert d'ouverture - Cantates de Noel",
-        description: "Marie-Claire Dubois (soprano) et le Choeur de Montbeliard interpretent les plus belles cantates de Noel de J.S. Bach.",
-        location: "Temple Saint-Martin",
-        artists: ["Marie-Claire Dubois", "Choeur de Montbeliard"],
-      },
-      {
-        time: "21h00",
-        title: "Vin chaud et rencontre avec les artistes",
-        description: "Moment convivial avec les artistes autour d'un vin chaud traditionnel.",
-        location: "Parvis du Temple",
-      },
-    ],
-  },
-  {
-    date: "21",
-    month: "Decembre",
-    day: "Dimanche",
-    title: "Soiree baroque",
-    events: [
-      {
-        time: "17h00",
-        title: "Concert jeune public",
-        description: "Une introduction ludique a la musique baroque pour les enfants de 5 a 12 ans.",
-        location: "Salle des fetes",
-      },
-      {
-        time: "19h30",
-        title: "Les Quatre Saisons de Vivaldi",
-        description: "L'Ensemble Baroque de Paris sous la direction d'Antoine Lefevre interprete le chef-d'oeuvre de Vivaldi.",
-        location: "Eglise Saint-Maimboeuf",
-        artists: ["Ensemble Baroque de Paris", "Antoine Lefevre"],
-      },
-      {
-        time: "21h30",
-        title: "Recital de violoncelle baroque",
-        description: "Pierre Dumont en solo interprete des suites de J.S. Bach.",
-        location: "Chateau des Ducs",
-        artists: ["Pierre Dumont"],
-      },
-    ],
-  },
-  {
-    date: "22",
-    month: "Decembre",
-    day: "Lundi",
-    title: "Nuit des etoiles",
-    events: [
-      {
-        time: "18h00",
-        title: "Masterclass de clavecin",
-        description: "Elisabeth Martin partage son savoir-faire dans une masterclass ouverte au public.",
-        location: "Conservatoire",
-        artists: ["Elisabeth Martin"],
-      },
-      {
-        time: "20h00",
-        title: "Concert aux chandelles",
-        description: "L'Ensemble Baroque de Paris et Elisabeth Martin vous transportent dans une ambiance feerique eclairee aux chandelles.",
-        location: "Eglise Saint-Maimboeuf",
-        artists: ["Ensemble Baroque de Paris", "Elisabeth Martin"],
-      },
-      {
-        time: "22h30",
-        title: "Nuit baroque - Concert impromptu",
-        description: "Concerts surprises dans differents lieux du centre-ville.",
-        location: "Centre-ville",
-      },
-    ],
-  },
-  {
-    date: "23",
-    month: "Decembre",
-    day: "Mardi",
-    title: "Concert de cloture",
-    events: [
-      {
-        time: "16h00",
-        title: "Conference - La musique baroque et Noel",
-        description: "Decouvrez l'histoire de la musique baroque de Noel avec le musicologue Jacques Moreau.",
-        location: "Bibliotheque municipale",
-      },
-      {
-        time: "19h00",
-        title: "Grand concert de cloture",
-        description: "Tous les artistes du festival reunis pour un concert exceptionnel. Oratorio de Noel de J.S. Bach.",
-        location: "Eglise Saint-Maimboeuf",
-        artists: ["Ensemble Baroque de Paris", "Marie-Claire Dubois", "Antoine Lefevre", "Choeur de Montbeliard"],
-      },
-      {
-        time: "22h00",
-        title: "Cocktail de cloture",
-        description: "Celebrons ensemble la fin de cette edition de Festicloze.",
-        location: "Chateau des Ducs",
-      },
-    ],
-  },
-];
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Programme - Festicloze">
-  <!-- Hero Section -->
-  <section class="bg-burgundy py-16 md:py-24">
-    <div class="container mx-auto px-4 md:px-6 text-center">
-      <h1 class="text-cream mb-4">Programme</h1>
-      <p class="text-cream/70 text-lg max-w-2xl mx-auto">
-        Quatre jours de concerts exceptionnels du 20 au 23 decembre 2025.
-      </p>
-    </div>
+<Layout title="Programme">
+  <Header />
+  
+  <!-- Titre -->
+  <section class="bg-rouge text-blanc text-center py-12 px-4">
+    <h2 class="text-3xl font-bold">Programme</h2>
+    <p class="mt-2">20 - 23 Decembre 2025</p>
   </section>
 
-  <!-- Date Navigation -->
-  <section class="bg-dark sticky top-16 md:top-20 z-40">
-    <div class="container mx-auto px-4 md:px-6">
-      <div class="flex justify-center gap-2 md:gap-4 py-4 overflow-x-auto">
-        {programme.map((day) => (
-          <a 
-            href={`#jour-${day.date}`}
-            class="flex flex-col items-center px-4 py-2 rounded-lg bg-burgundy/20 hover:bg-burgundy transition-colors min-w-fit"
-          >
-            <span class="text-gold text-2xl font-bold">{day.date}</span>
-            <span class="text-cream/70 text-xs">{day.month}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Programme Content -->
-  <section class="py-16 bg-cream">
-    <div class="container mx-auto px-4 md:px-6 max-w-4xl">
-      {programme.map((day, index) => (
-        <div id={`jour-${day.date}`} class={`scroll-mt-32 ${index > 0 ? 'mt-16 pt-16 border-t border-burgundy/20' : ''}`}>
-          <!-- Day Header -->
-          <div class="flex items-center gap-4 mb-8">
-            <div class="bg-burgundy text-cream rounded-lg p-4 text-center min-w-20">
-              <div class="text-gold text-3xl font-bold">{day.date}</div>
-              <div class="text-cream/70 text-sm">{day.month}</div>
-            </div>
-            <div>
-              <div class="text-dark/60 text-sm">{day.day}</div>
-              <h2 class="text-burgundy text-2xl font-bold">{day.title}</h2>
-            </div>
-          </div>
-
-          <!-- Events -->
-          <div class="space-y-6">
-            {day.events.map((event) => (
-              <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-l-4 border-gold">
-                <div class="flex flex-col md:flex-row md:items-start gap-4">
-                  <div class="text-gold font-bold text-lg min-w-16">{event.time}</div>
-                  <div class="flex-1">
-                    <h3 class="text-burgundy font-bold text-lg mb-2">{event.title}</h3>
-                    <p class="text-dark/70 mb-3">{event.description}</p>
-                    <div class="flex flex-wrap gap-4 text-sm">
-                      <div class="flex items-center gap-1 text-dark/60">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                        <span>{event.location}</span>
-                      </div>
-                      {event.artists && (
-                        <div class="flex items-center gap-1 text-gold">
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
-                          </svg>
-                          <span>{event.artists.join(", ")}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+  <!-- Programme -->
+  <section class="py-12 px-4 bg-gris">
+    <div class="max-w-3xl mx-auto">
+      
+      <!-- Jour 1 -->
+      <div class="mb-8">
+        <div class="bg-rouge text-blanc p-4 mb-4">
+          <h3 class="text-2xl font-bold">20 Decembre</h3>
+          <p>Samedi - Concert d'ouverture</p>
         </div>
-      ))}
+        <div class="bg-blanc p-4 mb-2">
+          <p class="text-or font-bold">19h00</p>
+          <p class="font-bold">Concert d'ouverture - Cantates de Noel</p>
+          <p class="text-sm">Temple Saint-Martin</p>
+        </div>
+      </div>
+      
+      <!-- Jour 2 -->
+      <div class="mb-8">
+        <div class="bg-rouge text-blanc p-4 mb-4">
+          <h3 class="text-2xl font-bold">21 Decembre</h3>
+          <p>Dimanche - Soiree baroque</p>
+        </div>
+        <div class="bg-blanc p-4 mb-2">
+          <p class="text-or font-bold">17h00</p>
+          <p class="font-bold">Concert jeune public</p>
+          <p class="text-sm">Salle des fetes</p>
+        </div>
+        <div class="bg-blanc p-4 mb-2">
+          <p class="text-or font-bold">19h30</p>
+          <p class="font-bold">Les Quatre Saisons de Vivaldi</p>
+          <p class="text-sm">Eglise Saint-Maimboeuf</p>
+        </div>
+      </div>
+      
+      <!-- Jour 3 -->
+      <div class="mb-8">
+        <div class="bg-rouge text-blanc p-4 mb-4">
+          <h3 class="text-2xl font-bold">22 Decembre</h3>
+          <p>Lundi - Nuit des etoiles</p>
+        </div>
+        <div class="bg-blanc p-4 mb-2">
+          <p class="text-or font-bold">20h00</p>
+          <p class="font-bold">Concert aux chandelles</p>
+          <p class="text-sm">Eglise Saint-Maimboeuf</p>
+        </div>
+      </div>
+      
+      <!-- Jour 4 -->
+      <div class="mb-8">
+        <div class="bg-rouge text-blanc p-4 mb-4">
+          <h3 class="text-2xl font-bold">23 Decembre</h3>
+          <p>Mardi - Concert de cloture</p>
+        </div>
+        <div class="bg-blanc p-4 mb-2">
+          <p class="text-or font-bold">19h00</p>
+          <p class="font-bold">Grand concert de cloture</p>
+          <p class="text-sm">Eglise Saint-Maimboeuf</p>
+        </div>
+      </div>
+      
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-16 bg-burgundy">
-    <div class="container mx-auto px-4 md:px-6 text-center">
-      <h2 class="text-cream mb-4">Reservez vos places</h2>
-      <p class="text-cream/70 mb-8 max-w-2xl mx-auto">
-        Les places sont limitees. Reservez des maintenant pour ne rien manquer.
-      </p>
-      <a href="/billetterie" class="btn-primary">Billetterie</a>
-    </div>
-  </section>
+  <Footer />
 </Layout>
