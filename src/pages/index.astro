@@ -1,10 +1,175 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const stats = [
+  { number: "3", label: "jours de concerts" },
+  { number: "10+", label: "artistes" },
+  { number: "3", label: "lieux" },
+];
+
+const artists = [
+  {
+    name: "Ensemble Baroque de Paris",
+    role: "Direction musicale",
+    dates: "21 & 22 Decembre",
+    image: "/images/ensemble-baroque.jpg",
+  },
+  {
+    name: "Marie-Claire Dubois",
+    role: "Soprano",
+    dates: "20 & 23 Decembre",
+    image: "/images/soprano.jpg",
+  },
+  {
+    name: "Antoine Lefevre",
+    role: "Violon baroque",
+    dates: "21 & 23 Decembre",
+    image: "/images/violoniste.jpg",
+  },
+];
 ---
 
-<Layout>
-	<h1>Welcome to Astro!</h1>
+<Layout title="Festicloze - Festival de Musique Baroque de Noel">
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="/images/hero-baroque.jpg" 
+        alt="Concert baroque de Noel" 
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-burgundy/70"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <h1 class="text-cream mb-6 text-balance">Festicloze</h1>
+      <p class="text-gold text-xl md:text-2xl mb-4 font-light">
+        La magie de Noel au coeur de la musique baroque
+      </p>
+      <p class="text-cream/80 text-lg mb-8">
+        20 - 23 Decembre 2025 | Montbeliard
+      </p>
+      
+      <!-- Stats -->
+      <div class="flex flex-wrap justify-center gap-8 md:gap-16 mb-10">
+        {stats.map((stat) => (
+          <div class="text-center">
+            <div class="text-gold text-4xl md:text-5xl font-bold">{stat.number}</div>
+            <div class="text-cream/80 text-sm mt-1">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/billetterie" class="btn-primary">Reserver mes places</a>
+        <a href="/programme" class="btn-secondary">Voir le programme</a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-16 md:py-24 bg-cream">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-burgundy mb-6">Bienvenue a Festicloze</h2>
+        <p class="text-dark/80 text-lg leading-relaxed mb-8">
+          Plongez dans l'univers enchanteur de la musique baroque en cette periode festive. 
+          Festicloze vous invite a decouvrir des concerts exceptionnels dans des lieux 
+          patrimoniaux de Montbeliard, ou la tradition rencontre la magie de Noel.
+        </p>
+        <a href="/apropos" class="text-gold hover:text-burgundy font-semibold transition-colors">
+          En savoir plus &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artists Section -->
+  <section class="py-16 md:py-24 bg-burgundy">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-cream mb-4">Nos Artistes</h2>
+        <p class="text-cream/70 max-w-2xl mx-auto">
+          Decouvrez les talentueux musiciens qui feront vibrer le festival cette annee.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {artists.map((artist) => (
+          <div class="group relative overflow-hidden bg-dark/20 rounded-lg">
+            <div class="aspect-[3/4] overflow-hidden">
+              <img 
+                src={artist.image} 
+                alt={artist.name}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="text-cream text-xl font-bold mb-1">{artist.name}</h3>
+              <p class="text-gold text-sm mb-2">{artist.role}</p>
+              <p class="text-cream/60 text-sm">{artist.dates}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="/artistes" class="btn-primary">Tous les artistes</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programme Preview -->
+  <section class="py-16 md:py-24 bg-beige">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-burgundy mb-4">Programme</h2>
+        <p class="text-dark/70 max-w-2xl mx-auto">
+          Quatre jours de concerts exceptionnels dans des lieux emblematiques.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        {["20", "21", "22", "23"].map((day) => (
+          <div class="bg-cream p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+            <div class="text-gold text-sm font-semibold mb-2">Decembre</div>
+            <div class="text-burgundy text-4xl font-bold mb-4">{day}</div>
+            <p class="text-dark/70 text-sm">
+              {day === "20" && "Concert d'ouverture"}
+              {day === "21" && "Soiree baroque"}
+              {day === "22" && "Nuit des etoiles"}
+              {day === "23" && "Concert de cloture"}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="/programme" class="text-burgundy hover:text-gold font-semibold transition-colors">
+          Voir le programme complet &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 md:py-24 bg-dark">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h2 class="text-cream mb-4">Reservez vos places</h2>
+      <p class="text-cream/70 max-w-2xl mx-auto mb-8">
+        Ne manquez pas cette experience unique. Les places sont limitees.
+      </p>
+      <a href="/billetterie" class="btn-primary">Billetterie</a>
+    </div>
+  </section>
 </Layout>

@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const artists = [
+  {
+    name: "Ensemble Baroque de Paris",
+    role: "Direction musicale",
+    dates: "21 & 22 Decembre",
+    image: "/images/ensemble-baroque.jpg",
+    description: "Fonde en 1980, l'Ensemble Baroque de Paris est reconnu pour ses interpretations authentiques du repertoire baroque. Sous la direction artistique de Jean-Michel Cartier, l'ensemble a acquis une reputation internationale.",
+  },
+  {
+    name: "Marie-Claire Dubois",
+    role: "Soprano",
+    dates: "20 & 23 Decembre",
+    image: "/images/soprano.jpg",
+    description: "Soprano lyrique de renommee internationale, Marie-Claire Dubois se distingue par sa voix cristalline et son interpretation sensible des oeuvres baroques. Elle a ete acclamee sur les plus grandes scenes europeennes.",
+  },
+  {
+    name: "Antoine Lefevre",
+    role: "Violon baroque",
+    dates: "21 & 23 Decembre",
+    image: "/images/violoniste.jpg",
+    description: "Premier violon de l'Ensemble Baroque de Paris, Antoine Lefevre est un virtuose du violon baroque. Sa maitrise technique et son expressivite font de lui l'un des solistes les plus demandes de sa generation.",
+  },
+  {
+    name: "Elisabeth Martin",
+    role: "Clavecin",
+    dates: "20 & 22 Decembre",
+    image: "/images/claveciniste.jpg",
+    description: "Claveciniste reconnue pour sa sensibilite musicale exceptionnelle, Elisabeth Martin apporte une touche unique a chaque interpretation. Elle est egalement professeure au Conservatoire National de Paris.",
+  },
+  {
+    name: "Pierre Dumont",
+    role: "Violoncelle baroque",
+    dates: "21 & 22 Decembre",
+    image: "/images/violoncelliste.jpg",
+    description: "Pierre Dumont est un specialiste du violoncelle baroque. Son jeu expressif et sa profonde connaissance du style baroque font de lui un musicien incontournable de la scene musicale francaise.",
+  },
+  {
+    name: "Choeur de Montbeliard",
+    role: "Choeur",
+    dates: "20 & 23 Decembre",
+    image: "/images/choeur.jpg",
+    description: "Le Choeur de Montbeliard rassemble des voix passionnees de musique ancienne. Depuis plus de 30 ans, le choeur perpetue la tradition du chant choral baroque dans la region.",
+  },
+];
+---
+
+<Layout title="Artistes - Festicloze">
+  <!-- Hero Section -->
+  <section class="bg-burgundy py-16 md:py-24">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h1 class="text-cream mb-4">Nos Artistes</h1>
+      <p class="text-cream/70 text-lg max-w-2xl mx-auto">
+        Decouvrez les talentueux musiciens qui feront vibrer Festicloze cette annee.
+      </p>
+    </div>
+  </section>
+
+  <!-- Artists Grid -->
+  <section class="py-16 md:py-24 bg-cream">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {artists.map((artist) => (
+          <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img 
+                src={artist.image} 
+                alt={artist.name}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="bg-gold/20 text-burgundy text-xs font-semibold px-2 py-1 rounded">
+                  {artist.role}
+                </span>
+              </div>
+              <h3 class="text-burgundy text-xl font-bold mb-2">{artist.name}</h3>
+              <p class="text-dark/60 text-sm mb-4">{artist.description}</p>
+              <div class="flex items-center gap-2 text-sm text-gold">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span>{artist.dates}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-dark">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h2 class="text-cream mb-4">Voir ces artistes en concert</h2>
+      <p class="text-cream/70 mb-8 max-w-2xl mx-auto">
+        Reservez vos places pour vivre des moments d'exception avec ces artistes d'exception.
+      </p>
+      <a href="/billetterie" class="btn-primary">Reserver maintenant</a>
+    </div>
+  </section>
+</Layout>

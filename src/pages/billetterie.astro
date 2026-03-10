@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const tarifs = [
+  {
+    name: "Pass Festival",
+    price: "75",
+    description: "Acces a tous les concerts du festival",
+    features: [
+      "Acces aux 4 journees",
+      "Places reservees",
+      "Cocktails inclus",
+      "Programme offert",
+    ],
+    featured: true,
+  },
+  {
+    name: "Pass Journee",
+    price: "25",
+    description: "Acces aux concerts d'une journee",
+    features: [
+      "Acces a une journee au choix",
+      "Places reservees",
+      "Programme offert",
+    ],
+    featured: false,
+  },
+  {
+    name: "Concert individuel",
+    price: "15",
+    description: "Acces a un concert au choix",
+    features: [
+      "Un concert au choix",
+      "Place standard",
+    ],
+    featured: false,
+  },
+];
+
+const concerts = [
+  { date: "20 Dec", time: "19h00", title: "Cantates de Noel", lieu: "Temple Saint-Martin" },
+  { date: "21 Dec", time: "17h00", title: "Concert jeune public", lieu: "Salle des fetes" },
+  { date: "21 Dec", time: "19h30", title: "Les Quatre Saisons", lieu: "Eglise Saint-Maimboeuf" },
+  { date: "21 Dec", time: "21h30", title: "Recital de violoncelle", lieu: "Chateau des Ducs" },
+  { date: "22 Dec", time: "20h00", title: "Concert aux chandelles", lieu: "Eglise Saint-Maimboeuf" },
+  { date: "23 Dec", time: "19h00", title: "Grand concert de cloture", lieu: "Eglise Saint-Maimboeuf" },
+];
+---
+
+<Layout title="Billetterie - Festicloze">
+  <!-- Hero Section -->
+  <section class="bg-burgundy py-16 md:py-24">
+    <div class="container mx-auto px-4 md:px-6 text-center">
+      <h1 class="text-cream mb-4">Billetterie</h1>
+      <p class="text-cream/70 text-lg max-w-2xl mx-auto">
+        Reservez vos places pour vivre une experience musicale exceptionnelle.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="py-16 md:py-24 bg-cream">
+    <div class="container mx-auto px-4 md:px-6">
+      <h2 class="text-burgundy text-center mb-12">Nos formules</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {tarifs.map((tarif) => (
+          <div class={`rounded-lg p-8 ${tarif.featured ? 'bg-burgundy text-cream ring-4 ring-gold' : 'bg-white shadow-md'}`}>
+            {tarif.featured && (
+              <div class="text-gold text-sm font-semibold mb-4">Recommande</div>
+            )}
+            <h3 class={`text-2xl font-bold mb-2 ${tarif.featured ? 'text-cream' : 'text-burgundy'}`}>
+              {tarif.name}
+            </h3>
+            <p class={`text-sm mb-4 ${tarif.featured ? 'text-cream/70' : 'text-dark/60'}`}>
+              {tarif.description}
+            </p>
+            <div class="mb-6">
+              <span class={`text-4xl font-bold ${tarif.featured ? 'text-gold' : 'text-burgundy'}`}>
+                {tarif.price}€
+              </span>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {tarif.features.map((feature) => (
+                <li class="flex items-center gap-2">
+                  <svg class={`w-5 h-5 ${tarif.featured ? 'text-gold' : 'text-gold'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class={`text-sm ${tarif.featured ? 'text-cream/80' : 'text-dark/70'}`}>
+                    {feature}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <button class={`w-full py-3 font-semibold transition-all ${
+              tarif.featured 
+                ? 'bg-gold text-dark hover:bg-cream' 
+                : 'bg-burgundy text-cream hover:bg-dark'
+            }`}>
+              Reserver
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Individual Concerts -->
+  <section class="py-16 bg-beige">
+    <div class="container mx-auto px-4 md:px-6">
+      <h2 class="text-burgundy text-center mb-12">Concerts individuels</h2>
+      <div class="max-w-3xl mx-auto space-y-4">
+        {concerts.map((concert) => (
+          <div class="bg-white rounded-lg p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+            <div class="flex items-center gap-4">
+              <div class="bg-burgundy text-cream px-3 py-2 rounded text-center min-w-16">
+                <div class="text-gold text-sm font-semibold">{concert.date}</div>
+                <div class="text-xs">{concert.time}</div>
+              </div>
+              <div>
+                <h3 class="text-burgundy font-semibold">{concert.title}</h3>
+                <p class="text-dark/60 text-sm">{concert.lieu}</p>
+              </div>
+            </div>
+            <button class="bg-gold text-dark px-6 py-2 font-semibold hover:bg-burgundy hover:text-cream transition-colors">
+              15€ - Reserver
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="py-16 bg-dark">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-cream mb-6">Informations pratiques</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-cream/70">
+          <div>
+            <svg class="w-8 h-8 text-gold mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+            </svg>
+            <h3 class="text-cream font-semibold mb-2">Paiement securise</h3>
+            <p class="text-sm">Paiement par carte bancaire securise.</p>
+          </div>
+          <div>
+            <svg class="w-8 h-8 text-gold mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <h3 class="text-cream font-semibold mb-2">E-billets</h3>
+            <p class="text-sm">Recevez vos billets par email instantanement.</p>
+          </div>
+          <div>
+            <svg class="w-8 h-8 text-gold mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 class="text-cream font-semibold mb-2">Annulation gratuite</h3>
+            <p class="text-sm">Remboursement jusqu'a 48h avant le concert.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
