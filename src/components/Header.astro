@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+import Logo from "../assets/icons/logo.svg";
+---
+
+<header class="sticky top-0 z-50 bg-[var(--color-red)] py-3">
+    <div class="flex items-center justify-between px-4">
+        <a href="/" class="inline-flex items-center gap-2.5">
+            <Logo class="h-14" />
+        </a>
+
+        <button
+            id="menuToggle"
+            class="bg-transparent border-0 p-2 text-inherit cursor-pointer"
+            aria-label="Ouvrir le menu"
+        >
+            <img
+                src="src/assets/icons/menu.svg"
+                alt="menu"
+                class="w-6 h-6"
+            />
+        </button>
+    </div>
+</header>
