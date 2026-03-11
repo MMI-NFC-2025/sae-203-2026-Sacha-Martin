@@ -3,12 +3,15 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Cardstat from "../components/Cardstat.astro";
 import Button from "../components/Button.astro";
-import Carousel from "../components/Carousel.astro";	
+import Carousel from "../components/Carousel.astro";
+import MapIcon from "../assets/icons/maps.svg";
+import ArtistesIcon from "../assets/icons/artistes.svg";
+import MusiqueIcon from "../assets/icons/musique.svg";
 
 const festivalStats = [
-	{ icon: "src/assets/icons/maps.svg", val: "3", txt: "Concerts" },
-	{ icon: "src/assets/icons/artistes.svg", val: "3", txt: "Artistes" },
-	{ icon: "src/assets/icons/musique.svg", val: "3", txt: "Scènes" },
+	{ icon: MapIcon, val: "3", txt: "Concerts" },
+	{ icon: ArtistesIcon, val: "3", txt: "Artistes" },
+	{ icon: MusiqueIcon, val: "3", txt: "Scènes" },
 ];
 ---
 

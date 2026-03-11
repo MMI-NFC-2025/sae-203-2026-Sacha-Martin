@@ -1,3 +1,11 @@
+---
+import { Image } from "astro:assets";
+import Logo from "../assets/icons/logo.svg";
+import Facebook from "../assets/icons/facebook.svg";
+import Instagram from "../assets/icons/insta.svg";
+import TikTok from "../assets/icons/tiktok.svg";
+---
+
 <footer
     class="p-0 border-y-4 border-[var(--color-yellow)] text-[var(--color-text)]"
 >
@@ -19,25 +27,13 @@
             <h4 class="text-sm font-semibold mb-3">Suivez-nous</h4>
             <div class="flex justify-center gap-4 m-0">
                 <a href="#" aria-label="Facebook"
-                    ><img
-                        class="w-6 h-6"
-                        src="src/assets/icons/facebook.svg"
-                        alt="Facebook"
-                    /></a
+                    ><Facebook class="w-6 h-6" aria-label="Facebook" /></a
                 >
                 <a href="#" aria-label="Instagram"
-                    ><img
-                        class="w-6 h-6"
-                        src="src/assets/icons/insta.svg"
-                        alt="Instagram"
-                    /></a
+                    ><Instagram class="w-6 h-6" aria-label="Instagram" /></a
                 >
                 <a href="#" aria-label="TikTok"
-                    ><img
-                        class="w-6 h-6"
-                        src="src/assets/icons/tiktok.svg"
-                        alt="TikTok"
-                    /></a
+                    ><TikTok class="w-6 h-6" aria-label="TikTok" /></a
                 >
             </div>
         </div>
