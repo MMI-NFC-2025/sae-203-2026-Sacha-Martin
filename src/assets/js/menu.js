@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (!menuToggle || !mobileMenu) return;
   
-  // Overlay
+  
   let overlay = document.querySelector('.menu-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
   overlay.addEventListener('click', closeMenu);
   
-  // Close menu on link click
+  
   const menuLinks = mobileMenu.querySelectorAll('a');
   menuLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
   });
   
-  // Close menu on Escape key
+  
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
       closeMenu();

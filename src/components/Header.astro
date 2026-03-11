@@ -19,26 +19,113 @@ import Logo from "../assets/icons/logo.svg";
     </div>
 </header>
 
-<nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <div class="menu-header">
-        <a href="/" class="menu-logo">
-            <img
-                src="assets/icons/logo.svg"
-                alt="Festicloze"
-                style="height:32px;width:auto;"
-            />
-            <span>Festicloze</span>
-        </a>
-        <button class="menu-close" id="menuClose" aria-label="Fermer le menu"
-            ><img src="assets/icons/close.svg" alt="fermer" /></button
+<div
+    id="menuOverlay"
+    class="fixed inset-0 bg-black/50 z-[90] opacity-0 pointer-events-none transition-opacity duration-300"
+>
+</div>
+
+<nav
+    class="fixed inset-0 bg-[var(--color-red)] z-[100] -translate-x-full transition-transform duration-300 overflow-y-auto"
+    id="mobileMenu"
+    aria-hidden="true"
+>
+    <div class="flex items-center justify-between gap-4 py-6 px-10">
+        <a
+            href="/"
+            class="flex items-center gap-2.5 no-underline text-[var(--color-text)] font-serif text-lg font-bold flex-shrink-0"
         >
+            <Logo class="h-24 w-auto flex-shrink-0" />
+        </a>
+        <button
+            class="bg-transparent border-0 p-2 text-[var(--color-text)] cursor-pointer flex items-center justify-center flex-shrink-0"
+            id="menuClose"
+            aria-label="Fermer le menu"
+        >
+            <img
+                class="w-7 h-7 brightness-0 invert"
+                src="src/assets/icons/close.svg"
+                alt="fermer"
+            />
+        </button>
     </div>
-    <ul class="menu-list">
-        <li><a href="programmes.html">Programmes</a></li>
-        <li><a href="artistes.html">Artistes</a></li>
-        <li><a href="scenes.html">Scènes</a></li>
-        <li><a href="apropos.html">À propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="infos-pratiques.html">Infos pratiques</a></li>
+
+    <ul class="list-none m-0 p-0">
+        <li>
+            <a
+                href="programmes.html"
+                class="block py-8 px-5 text-[var(--color-text)] no-underline text-[1.625rem] font-serif font-semibold hover:bg-white/5 transition-colors"
+            >
+                Programmes
+            </a>
+        </li>
+        <li>
+            <a
+                href="artistes.html"
+                class="block py-8 px-5 text-[var(--color-text)] no-underline text-[1.625rem] font-serif font-semibold hover:bg-white/5 transition-colors"
+            >
+                Artistes
+            </a>
+        </li>
+        <li>
+            <a
+                href="scenes.html"
+                class="block py-8 px-5 text-[var(--color-text)] no-underline text-[1.625rem] font-serif font-semibold hover:bg-white/5 transition-colors"
+            >
+                Scènes
+            </a>
+        </li>
+        <li>
+            <a
+                href="apropos.html"
+                class="block py-8 px-5 text-[var(--color-text)] no-underline text-[1.625rem] font-serif font-semibold hover:bg-white/5 transition-colors"
+            >
+                À propos
+            </a>
+        </li>
+        <li>
+            <a
+                href="contact.html"
+                class="block py-8 px-5 text-[var(--color-text)] no-underline text-[1.625rem] font-serif font-semibold hover:bg-white/5 transition-colors"
+            >
+                Contact
+            </a>
+        </li>
+        <li>
+            <a
+                href="infos-pratiques.html"
+                class="block py-8 px-5 text-[var(--color-text)] no-underline text-[1.625rem] font-serif font-semibold hover:bg-white/5 transition-colors"
+            >
+                Infos pratiques
+            </a>
+        </li>
     </ul>
 </nav>
+
+<script>
+    function setupMenu() {
+        const openBtn = document.getElementById("menuToggle");
+        const closeBtn = document.getElementById("menuClose");
+        const menu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("menuOverlay");
+
+        if (!openBtn || !menu) return;
+
+        const toggle = () => {
+            menu.classList.toggle("-translate-x-full");
+            menu.classList.toggle("translate-x-0");
+            overlay?.classList.toggle("opacity-0");
+            overlay?.classList.toggle("opacity-100");
+            overlay?.classList.toggle("pointer-events-none");
+            overlay?.classList.toggle("pointer-events-auto");
+            document.body.classList.toggle("overflow-hidden");
+        };
+
+        openBtn.onclick = toggle;
+        if (closeBtn) closeBtn.onclick = toggle;
+        if (overlay) overlay.onclick = toggle;
+    }
+
+    setupMenu();
+    document.addEventListener("astro:after-swap", setupMenu);
+</script>
