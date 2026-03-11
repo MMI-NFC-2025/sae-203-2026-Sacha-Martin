@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ArtistCard from "../components/ArtistCard.astro";
+
+// Imports des images (Astro optimise ces imports)
+import imgBaroque from "../assets/img/ensemblebaroque.avif";
+import imgSoprano from "../assets/img/soprano.avif";
+import imgViolon from "../assets/img/violoniste.avif";
+
+// Simulation des données PocketBase (Facile à remplacer plus tard)
+const artists = [
+    {
+        name: "Ensemble Baroque de Paris",
+        role: "Direction musicale",
+        dates: "21 & 22 Décembre",
+        image: imgBaroque,
+    },
+    {
+        name: "Marie-Claire Dubois",
+        role: "Soprano",
+        dates: "20 & 23 Décembre",
+        image: imgSoprano,
+    },
+    {
+        name: "Antoine Lefèvre",
+        role: "Violon baroque",
+        dates: "21 & 23 Décembre",
+        image: imgViolon,
+    },
+];
+---
+
+<Layout title="Artistes - Festicloze">
+    <main class="bg-[#4A0E0E] min-h-screen">
+        <section
+            class="h-[140px] relative bg-[url('/src/assets/img/fond.avif')] bg-center bg-cover border-b border-[#D4AF37]/30"
+        >
+            <div class="absolute inset-0 bg-[#8B1538]/60 backdrop-blur-[1px]">
+            </div>
+        </section>
+
+        <div class="max-w-6xl mx-auto px-6 py-12">
+            <h2
+                class="text-white font-serif text-4xl text-center mb-12 tracking-wide"
+            >
+                Artistes
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {
+                    artists.map((artist) => (
+                        <ArtistCard
+                            name={artist.name}
+                            role={artist.role}
+                            dates={artist.dates}
+                            imagePath={artist.image}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+</Layout>

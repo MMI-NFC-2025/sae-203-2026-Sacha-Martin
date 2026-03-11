@@ -1,0 +1,129 @@
+---
+import { Image } from "astro:assets";
+import carousel1 from "../assets/img/carousel1.avif";
+import carousel2 from "../assets/img/carousel2.avif";
+import carousel3 from "../assets/img/carousel3.avif";
+---
+
+<section class="py-16 md:pb-20 px-4">
+    <div
+        class="relative w-full max-w-[350px] mx-auto overflow-hidden rounded-xl shadow-lg"
+    >
+        <div
+            id="carouselTrack"
+            class="flex transition-transform duration-300 ease-out"
+        >
+            <button
+                class="min-w-full aspect-[16/10] border-0 p-0 bg-transparent cursor-pointer overflow-hidden"
+                data-lightbox="0"
+            >
+                <Image
+                    src={carousel1}
+                    alt="Carousel 1"
+                    class="w-full h-full object-cover"
+                />
+            </button>
+            <button
+                class="min-w-full aspect-[16/10] border-0 p-0 bg-transparent cursor-pointer overflow-hidden"
+                data-lightbox="1"
+            >
+                <Image
+                    src={carousel2}
+                    alt="Carousel 2"
+                    class="w-full h-full object-cover"
+                />
+            </button>
+            <button
+                class="min-w-full aspect-[16/10] border-0 p-0 bg-transparent cursor-pointer overflow-hidden"
+                data-lightbox="2"
+            >
+                <Image
+                    src={carousel3}
+                    alt="Carousel 3"
+                    class="w-full h-full object-cover"
+                />
+            </button>
+        </div>
+
+        <button
+            id="prevBtn"
+            class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded hover:bg-black/70 z-10 cursor-pointer transition-colors"
+            aria-label="Image précédente">‹</button
+        >
+        <button
+            id="nextBtn"
+            class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded hover:bg-black/70 z-10 cursor-pointer transition-colors"
+            aria-label="Image suivante">›</button
+        >
+    </div>
+
+    <div class="carousel-dots flex justify-center gap-2 mt-4">
+        <span
+            class="w-2.5 h-2.5 rounded-full bg-[var(--color-yellow)] cursor-pointer transition-colors duration-300"
+        ></span>
+        <span
+            class="w-2.5 h-2.5 rounded-full bg-white/30 cursor-pointer transition-colors duration-300"
+        ></span>
+        <span
+            class="w-2.5 h-2.5 rounded-full bg-white/30 cursor-pointer transition-colors duration-300"
+        ></span>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const track = document.getElementById("carouselTrack");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const dots = document.querySelectorAll(".carousel-dots span"); // Cible tes 3 spans
+
+        if (!track || !prevBtn || !nextBtn) return;
+
+        let currentIndex = 0;
+        const totalSlides = track.children.length;
+
+        const updateCarousel = () => {
+            // 1. On fait glisser le rail (chaque slide fait 100% de large)
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+            // 2. On met à jour les points (dots)
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add("bg-[var(--color-yellow)]");
+                    dot.classList.remove("bg-white/30");
+                } else {
+                    dot.classList.remove("bg-[var(--color-yellow)]");
+                    dot.classList.add("bg-white/30");
+                }
+            });
+        };
+
+        // Bouton Suivant
+        nextBtn.addEventListener("click", () => {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Revient au début
+            }
+            updateCarousel();
+        });
+
+        // Bouton Précédent
+        prevBtn.addEventListener("click", () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = totalSlides - 1; // Va à la fin
+            }
+            updateCarousel();
+        });
+
+        // Bonus : Rendre les points cliquables
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+    });
+</script>

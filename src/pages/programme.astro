@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ProgrammeCard from "../components/ProgrammeCard.astro";
+
+const programmes = [
+    {
+        date: "20 Décembre",
+        badge: "Ouverture",
+        badgeClass: "ouverture",
+        title: "Concert d'ouverture",
+        info: "Église Saint-Maimbœuf • 20h00",
+    },
+    {
+        date: "21 Décembre",
+        badge: "Baroque",
+        badgeClass: "baroque",
+        title: "Ensemble Vivaldi",
+        info: "Temple Saint-Martin • 19h30",
+    },
+    {
+        date: "22 Décembre",
+        badge: "Famille",
+        badgeClass: "famille",
+        title: "Contes musicaux",
+        info: "Château des Ducs • 16h00",
+    },
+];
+---
+
+<Layout title="Programmes - Festicloze">
+    <Header />
+
+    <main class="pt-20">
+        <section
+            class="h-[120px] relative bg-[url('/assets/img/fond.avif')] bg-center bg-top bg-cover"
+        >
+            <div class="absolute inset-0 bg-[rgba(139,21,56,0.62)]"></div>
+        </section>
+
+        <section class="max-w-7xl mx-auto py-8 px-4">
+            <h2
+                class="font-[var(--font-titres)] text-2xl text-center mb-8 uppercase tracking-widest text-[var(--bordeaux)]"
+            >
+                Programme
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {programmes.map((p) => <ProgrammeCard {...p} />)}
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</Layout>

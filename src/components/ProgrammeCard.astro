@@ -1,0 +1,41 @@
+---
+interface Props {
+    date: string;
+    badge: string;
+    badgeClass: string;
+    title: string;
+    info: string;
+}
+
+const { date, badge, badgeClass, title, info } = Astro.props;
+
+// Mapping des classes de badges vers les couleurs Tailwind
+const badgeStyles = {
+    ouverture: "bg-[rgba(212,175,55,0.2)]",
+    baroque: "bg-[rgba(220,20,60,0.2)]",
+    famille: "bg-[rgba(212,175,55,0.2)]",
+};
+---
+
+<div
+    class="bg-[var(--beige)] border border-[rgba(212,175,55,0.3)] rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+>
+    <div class="flex justify-between items-center mb-2">
+        <h3 class="font-semibold text-base text-[#8b0000] m-0">{date}</h3>
+        <span
+            class={`inline-block px-2 py-1 rounded text-[12px] text-[#8b0000] ${badgeStyles[badgeClass as keyof typeof badgeStyles]}`}
+        >
+            {badge}
+        </span>
+    </div>
+    <p
+        class="font-[var(--font-txt)] text-sm text-[var(--bordeaux)] font-bold mb-1 uppercase tracking-wide"
+    >
+        {title}
+    </p>
+    <p
+        class="font-[var(--font-txt)] text-[12px] text-[var(--bordeaux)] m-0 opacity-80"
+    >
+        {info}
+    </p>
+</div>
