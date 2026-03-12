@@ -4,7 +4,6 @@ import { artistesName } from "../../backend/backend.mjs";
 
 const PB_URL = "https://festicloze.sacha-martin.fr:443";
 
-// Formate une date en jour + heure lisible
 function formatDate(date: string) {
     const d = new Date(date);
     const jour = d.toLocaleDateString("fr-FR", {
@@ -19,7 +18,6 @@ function formatDate(date: string) {
     return `${jour} à ${heure}`;
 }
 
-// Récupère les artistes depuis PocketBase
 let artists: any[] = [];
 
 try {
@@ -39,11 +37,12 @@ try {
     console.error("Erreur lors de la récupération des artistes:", error);
 }
 
-// Extraire les genres uniques pour les filtres
 const genres = [...new Set(artists.map((a) => a.role).filter(Boolean))];
+
+const title = "Artistes - Festicloze";
 ---
 
-<Layout title="Artistes - Festicloze">
+<Layout title={title}>
     <main class="bg-[#4A0E0E] min-h-screen">
         <section
             class="h-[140px] relative bg-[url('/src/assets/img/fond.avif')] bg-center bg-cover border-b border-[#D4AF37]/30"
@@ -59,7 +58,6 @@ const genres = [...new Set(artists.map((a) => a.role).filter(Boolean))];
                 Artistes
             </h2>
 
-            <!-- Filtres par genre -->
             <div
                 class="flex flex-wrap justify-center gap-3 mb-10"
                 id="genre-filters"

@@ -5,7 +5,6 @@ import { scenesName } from "../../backend/backend.mjs";
 
 const PB_URL = "https://festicloze.sacha-martin.fr:443";
 
-// Récupère les scènes depuis PocketBase
 let scenes: any[] = [];
 
 try {
@@ -23,13 +22,13 @@ try {
     console.error("Erreur lors de la récupération des scènes:", error);
 }
 
-// Extraire les genres uniques pour les filtres
 const genres = [...new Set(scenes.map((s) => s.genre).filter(Boolean))];
+
+const title = "Scènes - Festicloze";
 ---
 
-<Layout title="Scènes - Festicloze">
+<Layout title={title}>
     <main class="min-h-screen bg-[var(--color-red)]">
-        <!-- Hero Section -->
         <section
             class="h-[140px] relative bg-[url('/src/assets/img/fond.avif')] bg-center bg-cover border-b border-[#D4AF37]/30"
         >
@@ -37,33 +36,36 @@ const genres = [...new Set(scenes.map((s) => s.genre).filter(Boolean))];
             </div>
         </section>
 
-        <!-- Scenes Section -->
         <section class="py-12 md:py-16 px-4 bg-[var(--color-red)]">
             <div class="max-w-6xl mx-auto">
-                <!-- Titre -->
-                <h1 class="text-4xl md:text-5xl font-serif font-bold text-white text-center mb-8">
+                <h1
+                    class="text-4xl md:text-5xl font-serif font-bold text-white text-center mb-8"
+                >
                     Lieux emblématiques
                 </h1>
 
-                <!-- Filtres par genre -->
-                <div class="flex flex-wrap justify-center gap-3 mb-10" id="genre-filters">
+                <div
+                    class="flex flex-wrap justify-center gap-3 mb-10"
+                    id="genre-filters"
+                >
                     <button
                         class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-[var(--color-yellow)] text-[var(--color-red)]"
                         data-genre="all"
                     >
                         Tous
                     </button>
-                    {genres.map((genre) => (
-                        <button
-                            class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-white/20 text-white hover:bg-[var(--color-yellow)] hover:text-[var(--color-red)]"
-                            data-genre={genre}
-                        >
-                            {genre}
-                        </button>
-                    ))}
+                    {
+                        genres.map((genre) => (
+                            <button
+                                class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-white/20 text-white hover:bg-[var(--color-yellow)] hover:text-[var(--color-red)]"
+                                data-genre={genre}
+                            >
+                                {genre}
+                            </button>
+                        ))
+                    }
                 </div>
 
-                <!-- Grille responsive -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                     {
                         scenes.map((scene) => (
@@ -73,7 +75,6 @@ const genres = [...new Set(scenes.map((s) => s.genre).filter(Boolean))];
                                 data-genre={scene.genre || ""}
                             >
                                 <div class="rounded-2xl overflow-hidden shadow-xl bg-white">
-                                    <!-- Image -->
                                     <div class="relative h-48 md:h-56 w-full overflow-hidden bg-gray-300">
                                         {scene.photoUrl && (
                                             <img
@@ -84,7 +85,6 @@ const genres = [...new Set(scenes.map((s) => s.genre).filter(Boolean))];
                                         )}
                                     </div>
 
-                                    <!-- Info Card -->
                                     <div class="p-5 md:p-6 bg-[var(--color-beige)]">
                                         <h3 class="text-lg md:text-xl font-serif font-bold text-[var(--color-dark)] mb-2">
                                             {scene.name}
@@ -109,21 +109,28 @@ const genres = [...new Set(scenes.map((s) => s.genre).filter(Boolean))];
 
     buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            // Met à jour le bouton actif
             buttons.forEach((b) => {
                 b.classList.remove("active");
-                b.classList.remove("bg-[var(--color-yellow)]", "text-[var(--color-red)]");
+                b.classList.remove(
+                    "bg-[var(--color-yellow)]",
+                    "text-[var(--color-red)]",
+                );
                 b.classList.add("bg-white/20", "text-white");
             });
             btn.classList.add("active");
             btn.classList.remove("bg-white/20", "text-white");
-            btn.classList.add("bg-[var(--color-yellow)]", "text-[var(--color-red)]");
+            btn.classList.add(
+                "bg-[var(--color-yellow)]",
+                "text-[var(--color-red)]",
+            );
 
             const genre = btn.getAttribute("data-genre");
 
-            // Filtre les cartes
             cards.forEach((card) => {
-                if (genre === "all" || card.getAttribute("data-genre") === genre) {
+                if (
+                    genre === "all" ||
+                    card.getAttribute("data-genre") === genre
+                ) {
                     (card as HTMLElement).style.display = "";
                 } else {
                     (card as HTMLElement).style.display = "none";

@@ -36,3 +36,23 @@ export async function allartistebysceneName(nom) {
     const records = await pb.collection('artiste').getFullList({ filter: `scene="${scene.id}"`, sort: 'date_representation' });
     return records;
 }
+
+export async function addArtiste(data) {
+    const record = await pb.collection('artiste').create(data);
+    return record;
+}
+
+export async function addScene(data) {
+    const record = await pb.collection('scene').create(data);
+    return record;
+}
+
+export async function updateArtiste(id, data) {
+    const record = await pb.collection('artiste').update(id, data);
+    return record;
+}
+
+export async function updateScene(id, data) {
+    const record = await pb.collection('scene').update(id, data);
+    return record;
+}

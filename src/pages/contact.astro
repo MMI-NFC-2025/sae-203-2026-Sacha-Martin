@@ -4,7 +4,6 @@ import { Image } from "astro:assets";
 import egliseImage from "../assets/img/eglise.avif";
 import FormField from "../components/FormField.astro";
 
-// Structure du formulaire - facilement extensible avec PocketBase
 interface FormField {
     id: string;
     name: string;
@@ -50,10 +49,11 @@ const formFields: FormField[] = [
         rows: 6,
     },
 ];
+
+const title = "Contact - Festicloze";
 ---
 
-<Layout>
-    <!-- Hero Section -->
+<Layout title={title}>
     <section
         class="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden bg-gradient-to-b from-transparent to-[var(--color-red)]"
     >
@@ -68,10 +68,8 @@ const formFields: FormField[] = [
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="px-4 py-12 md:py-16 lg:py-20 max-w-2xl mx-auto">
         <form class="space-y-8" id="contactForm">
-            <!-- Form Fields -->
             {
                 formFields.map((field) => (
                     <FormField
@@ -95,7 +93,6 @@ const formFields: FormField[] = [
     </section>
 </Layout>
 
-<!-- Spacing Before Footer -->
 <div class="h-12 md:h-16"></div>
 
 <script>

@@ -5,7 +5,6 @@ import { artisteID, sceneID } from "../../../backend/backend.mjs";
 
 const PB_URL = "https://festicloze.sacha-martin.fr:443";
 
-// Récupère le paramètre dynamique depuis l'URL
 const { id } = Astro.params;
 
 // Récupère l'artiste depuis PocketBase
@@ -17,17 +16,14 @@ try {
     console.error("Erreur lors de la récupération de l'artiste:", error);
 }
 
-// Si l'artiste n'existe pas, redirection
 if (!artist) {
     return Astro.redirect("/artistes/");
 }
 
-// Construit l'URL de la photo
 const photoUrl = artist.photo_artiste
     ? `${PB_URL}/api/files/artiste/${artist.id}/${artist.photo_artiste}`
     : null;
 
-// Récupère le nom de la scène
 let nomScene = artist.scene || "";
 try {
     if (artist.scene) {
@@ -38,7 +34,6 @@ try {
     console.error("Erreur récupération scène:", error);
 }
 
-// Formate une date en jour + heure lisible
 function formatDate(date: string) {
     const d = new Date(date);
     const jour = d.toLocaleDateString("fr-FR", {
@@ -53,17 +48,17 @@ function formatDate(date: string) {
     return `${jour} à ${heure}`;
 }
 
-// Construit les URLs des photos de galerie
 const galleryPhotos =
     artist.galerie_artiste?.map((filename: string) => ({
         id: filename,
         alt: `Photo de ${artist.nom_artiste}`,
         url: `${PB_URL}/api/files/artiste/${artist.id}/${filename}`,
     })) || [];
+
+const title = `${artist.nom_artiste} - Festicloze`;
 ---
 
-<Layout>
-    <!-- Hero Section -->
+<Layout title={title}>
     <section
         class="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden bg-gradient-to-b from-transparent to-[var(--color-red)]"
     >
@@ -82,7 +77,6 @@ const galleryPhotos =
         </div>
     </section>
 
-    <!-- Artist Header -->
     <section class="px-4 py-12 md:py-16 lg:py-20 max-w-6xl mx-auto">
         <h2
             class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-center text-[var(--color-text)] mb-2"
@@ -101,10 +95,8 @@ const galleryPhotos =
         </p>
     </section>
 
-    <!-- Main Content Grid -->
     <section class="px-4 py-8 md:py-12 lg:py-16 max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-12">
-            <!-- Photo Principale -->
             <div class="lg:col-span-1">
                 <div class="rounded-lg overflow-hidden shadow-lg">
                     {
@@ -119,9 +111,7 @@ const galleryPhotos =
                 </div>
             </div>
 
-            <!-- Infos -->
             <div class="lg:col-span-2 space-y-8">
-                <!-- Description -->
                 <div
                     class="bg-[var(--color-beige)] border border-[rgba(212,175,55,0.3)] rounded-lg p-6 md:p-8 shadow-md"
                 >
@@ -137,9 +127,7 @@ const galleryPhotos =
                     </p>
                 </div>
 
-                <!-- Dates & Scènes -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Dates -->
                     {
                         artist.date_representation && (
                             <div class="bg-[var(--color-beige)] border border-[rgba(212,175,55,0.3)] rounded-lg p-6 shadow-md">
@@ -153,7 +141,6 @@ const galleryPhotos =
                         )
                     }
 
-                    <!-- Scène -->
                     {
                         artist.scene && (
                             <div class="bg-[var(--color-beige)] border border-[rgba(212,175,55,0.3)] rounded-lg p-6 shadow-md">
@@ -170,19 +157,22 @@ const galleryPhotos =
             </div>
         </div>
 
-        <!-- Separator -->
         <div class="h-px bg-[rgba(212,175,55,0.3)] mb-12 md:mb-16"></div>
 
-        <!-- Gallery Carousel -->
         {
             galleryPhotos.length > 0 && (
                 <div>
                     <h3 class="text-2xl md:text-3xl font-serif font-bold text-center text-[var(--color-text)] mb-8">
                         Galerie photos
                     </h3>
-                    <div class="relative overflow-hidden rounded-2xl shadow-lg" id="gallery-carousel">
-                        <!-- Slides -->
-                        <div class="flex transition-transform duration-500 ease-in-out" id="gallery-track">
+                    <div
+                        class="relative overflow-hidden rounded-2xl shadow-lg"
+                        id="gallery-carousel"
+                    >
+                        <div
+                            class="flex transition-transform duration-500 ease-in-out"
+                            id="gallery-track"
+                        >
                             {galleryPhotos.map((photo: any) => (
                                 <div class="w-full flex-shrink-0">
                                     <img
@@ -194,7 +184,6 @@ const galleryPhotos =
                             ))}
                         </div>
 
-                        <!-- Boutons navigation -->
                         <button
                             id="gallery-prev"
                             class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors"
@@ -210,11 +199,13 @@ const galleryPhotos =
                             &#10095;
                         </button>
 
-                        <!-- Indicateurs -->
                         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                             {galleryPhotos.map((_: any, i: number) => (
                                 <button
-                                    class:list={["gallery-dot w-3 h-3 rounded-full transition-colors", i === 0 ? "bg-white" : "bg-white/50"]}
+                                    class:list={[
+                                        "gallery-dot w-3 h-3 rounded-full transition-colors",
+                                        i === 0 ? "bg-white" : "bg-white/50",
+                                    ]}
                                     data-index={i}
                                     aria-label={`Photo ${i + 1}`}
                                 />
@@ -226,12 +217,10 @@ const galleryPhotos =
         }
     </section>
 
-    <!-- Back Button -->
     <section class="px-4 py-8 max-w-6xl mx-auto">
         <BackButton href="/artistes/" label="Retour aux artistes" />
     </section>
 
-    <!-- Spacing Before Footer -->
     <div class="h-12 md:h-16"></div>
 </Layout>
 

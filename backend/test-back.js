@@ -9,12 +9,12 @@ import { artistesSorted, scenesName, artistesName, artisteID, sceneID, allartist
 // }
 
 /* scenes par nom */
-// try {
-//     const records = await scenesName();
-//     console.log(JSON.stringify(records, null, 2));
-// } catch (e) {
-//     console.error(e);
-// }
+try {
+    const records = await scenesName();
+    console.log(JSON.stringify(records, null, 2));
+} catch (e) {
+    console.error(e);
+}
 
 /* artistes par nom */
 // try {
@@ -48,7 +48,7 @@ import { artistesSorted, scenesName, artistesName, artisteID, sceneID, allartist
 //     console.error(e);
 // }
 
-/*artistes d'une scene par nom de la scene et trié par date */ 
+/*artistes d'une scene par nom de la scene et trié par date */
 // try {
 //     const records = await allartistebysceneName('Temple Saint-Martin');
 //     console.log(JSON.stringify(records, null, 2));
@@ -56,7 +56,7 @@ import { artistesSorted, scenesName, artistesName, artisteID, sceneID, allartist
 //     console.error(e);
 // }
 
-/* ajouter un artiste */ 
+/* ajouter un artiste */
 // try {
 //     const artisteData = {
 //         "nom": "Sacha Martin",

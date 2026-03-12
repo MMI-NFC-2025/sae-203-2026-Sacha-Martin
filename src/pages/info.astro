@@ -5,7 +5,6 @@ import templeImage from "../assets/img/temple.avif";
 import InfoCard from "../components/InfoCard.astro";
 import PartnerCard from "../components/PartnerCard.astro";
 
-// Structure des infos pratiques - facilement extensible avec PocketBase
 const infoPratiques = [
     {
         title: "Tarifs",
@@ -21,7 +20,6 @@ const infoPratiques = [
     },
 ];
 
-// Structure des partenaires - facilement extensible avec PocketBase
 const partenaires = [
     {
         name: "Ville de Montbéliard",
@@ -36,10 +34,11 @@ const partenaires = [
         name: "Conservatoire",
     },
 ];
+
+const title = "Infos pratiques - Festicloze";
 ---
 
-<Layout>
-    <!-- Hero Section -->
+<Layout title={title}>
     <section
         class="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden bg-gradient-to-b from-transparent to-[var(--color-red)]"
     >
@@ -54,7 +53,6 @@ const partenaires = [
         </div>
     </section>
 
-    <!-- Infos Pratiques Section -->
     <section class="px-4 py-12 md:py-16 lg:py-20 max-w-6xl mx-auto">
         <h2
             class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-center text-[var(--color-text)] mb-12"
@@ -74,11 +72,11 @@ const partenaires = [
         </div>
     </section>
 
-    <!-- Separator -->
     <div class="h-px bg-[rgba(212,175,55,0.3)]"></div>
 
-    <!-- Partenaires Section -->
-    <section class="bg-[var(--color-bright-red)] px-4 py-12 md:py-16 lg:py-20 max-w-6xl mx-auto">
+    <section
+        class="bg-[var(--color-bright-red)] px-4 py-12 md:py-16 lg:py-20 max-w-6xl mx-auto"
+    >
         <h2
             class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-center text-[var(--color-text)] mb-12"
         >
@@ -94,6 +92,5 @@ const partenaires = [
         </div>
     </section>
 
-    <!-- Spacing Before Footer -->
     <div class="h-12 md:h-16"></div>
 </Layout>
