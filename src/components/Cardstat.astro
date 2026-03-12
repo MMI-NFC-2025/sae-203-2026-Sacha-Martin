@@ -1,13 +1,13 @@
 ---
 // Récupération des propriétés dynamiques
-const { iconPath, value, label } = Astro.props;
+const { icon: Icon, value, label } = Astro.props;
 ---
 
 <div class="flex flex-col items-center min-w-20">
     <div
         class="w-14 h-14 rounded-full bg-[var(--color-yellow)] flex items-center justify-center mb-1.5 shadow-md"
     >
-        <img src={iconPath} alt={label} class="w-5 h-5 brightness-0" />
+        <Icon class="w-5 h-5" fill="var(--color-red)" />
     </div>
 
     <span

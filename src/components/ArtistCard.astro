@@ -2,27 +2,36 @@
 import { Image } from "astro:assets";
 
 interface Props {
+    id: string;
     name: string;
     role: string;
     dates: string;
     imagePath: any; // Import de l'image
 }
 
-const { name, role, dates, imagePath } = Astro.props;
+const { id, name, role, dates, imagePath } = Astro.props;
 ---
 
-<div
-    class="flex flex-col rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-[1.02] cursor-pointer"
->
-    <div class="h-48 w-full overflow-hidden">
-        <Image src={imagePath} alt={name} class="w-full h-full object-cover" />
-    </div>
+<a href={`/artistes/${id}/`}>
+    <div
+        class="flex flex-col rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-[1.02] cursor-pointer"
+    >
+        <div class="h-48 w-full overflow-hidden">
+            <Image
+                src={imagePath}
+                alt={name}
+                class="w-full h-full object-cover"
+            />
+        </div>
 
-    <div class="bg-[#EBD5B3] p-5 flex flex-col gap-1 min-h-[120px]">
-        <h3 class="text-[#8B1538] font-serif text-lg font-bold leading-tight">
-            {name}
-        </h3>
-        <p class="text-[#2D2D2D] text-sm font-medium">{role}</p>
-        <p class="text-[#2D2D2D] text-xs opacity-80">{dates}</p>
+        <div class="bg-[#EBD5B3] p-5 flex flex-col gap-1 min-h-[120px]">
+            <h3
+                class="text-[#8B1538] font-serif text-lg font-bold leading-tight"
+            >
+                {name}
+            </h3>
+            <p class="text-[#2D2D2D] text-sm font-medium">{role}</p>
+            <p class="text-[#2D2D2D] text-xs opacity-80">{dates}</p>
+        </div>
     </div>
-</div>
+</a>

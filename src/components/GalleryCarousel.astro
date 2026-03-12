@@ -1,0 +1,155 @@
+---
+interface Props {
+	images: { id: string; alt: string; src?: any }[];
+	autoplay?: boolean;
+}
+
+const { images, autoplay = true } = Astro.props;
+---
+
+<div class="relative w-full bg-[var(--color-red)] rounded-lg overflow-hidden shadow-lg">
+	<!-- Carousel Container -->
+	<div class="relative h-64 md:h-80 lg:h-96 overflow-hidden">
+		{
+			images.map((image, index) => (
+				<div
+					class={`carousel-slide absolute inset-0 transition-opacity duration-500 ${index === 0 ? "opacity-100" : "opacity-0"}`}
+					data-index={index}
+				>
+					{image.src ? (
+						<img
+							src={image.src}
+							alt={image.alt}
+							class="w-full h-full object-cover"
+						/>
+					) : (
+						<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--color-red)] to-[var(--color-red)]/80">
+							<div class="text-center">
+								<div class="text-6xl mb-4">📷</div>
+								<p class="text-[var(--color-text)] font-serif text-lg">
+									Image à venir
+								</p>
+								<p class="text-[var(--color-yellow)] text-sm mt-2">
+									{image.alt}
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
+			))
+		}
+	</div>
+
+	<!-- Navigation Buttons -->
+	{
+		images.length > 1 && (
+			<>
+				<button
+					class="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-[var(--color-yellow)]/80 hover:bg-[var(--color-yellow)] text-[var(--color-red)] p-2 rounded-full transition-all"
+					id="prevBtn"
+					aria-label="Image précédente"
+				>
+					<svg
+						class="w-6 h-6"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M15 19l-7-7 7-7"
+						/>
+					</svg>
+				</button>
+
+				<button
+					class="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-[var(--color-yellow)]/80 hover:bg-[var(--color-yellow)] text-[var(--color-red)] p-2 rounded-full transition-all"
+					id="nextBtn"
+					aria-label="Image suivante"
+				>
+					<svg
+						class="w-6 h-6"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M9 5l7 7-7 7"
+						/>
+					</svg>
+				</button>
+
+				<!-- Dots Indicators -->
+				<div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+					{images.map((_, index) => (
+						<button
+							class={`dot w-2 h-2 rounded-full transition-all ${index === 0 ? "bg-[var(--color-yellow)] w-8" : "bg-[var(--color-yellow)]/50"}`}
+							data-index={index}
+							aria-label={`Aller à l'image ${index + 1}`}
+						/>
+					))}
+				</div>
+			</>
+		)
+	}
+</div>
+
+<script define:vars={{ autoplay, totalImages: images.length }}>
+	let currentIndex = 0;
+	let autoplayInterval;
+
+	const slides = document.querySelectorAll(".carousel-slide");
+	const dots = document.querySelectorAll(".dot");
+	const prevBtn = document.getElementById("prevBtn");
+	const nextBtn = document.getElementById("nextBtn");
+
+	function showSlide(index) {
+		slides.forEach((slide) => slide.classList.remove("opacity-100"));
+		slides.forEach((slide) => slide.classList.add("opacity-0"));
+		slides[index].classList.add("opacity-100");
+
+		dots.forEach((dot) => {
+			dot.classList.remove("bg-[var(--color-yellow)]", "w-8");
+			dot.classList.add("bg-[var(--color-yellow)]/50");
+		});
+		if (dots[index]) {
+			dots[index].classList.remove("bg-[var(--color-yellow)]/50");
+			dots[index].classList.add("bg-[var(--color-yellow)]", "w-8");
+		}
+	}
+
+	function nextSlide() {
+		currentIndex = (currentIndex + 1) % slides.length;
+		showSlide(currentIndex);
+	}
+
+	function prevSlide() {
+		currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+		showSlide(currentIndex);
+	}
+
+	if (prevBtn) prevBtn.addEventListener("click", prevSlide);
+	if (nextBtn) nextBtn.addEventListener("click", nextSlide);
+
+	dots.forEach((dot) => {
+		dot.addEventListener("click", () => {
+			currentIndex = parseInt(dot.dataset.index);
+			showSlide(currentIndex);
+			clearInterval(autoplayInterval);
+			startAutoplay();
+		});
+	});
+
+	function startAutoplay() {
+		if (autoplay && slides.length > 1) {
+			autoplayInterval = setInterval(nextSlide, 5000);
+		}
+	}
+
+	startAutoplay();
+</script>

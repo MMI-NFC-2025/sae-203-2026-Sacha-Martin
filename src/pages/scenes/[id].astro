@@ -1,0 +1,131 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BackButton from "../../components/BackButton.astro";
+import { sceneID } from "../../../backend/backend.mjs";
+
+const PB_URL = "https://festicloze.sacha-martin.fr:443";
+
+// Récupère le paramètre dynamique depuis l'URL
+const { id } = Astro.params;
+
+// Récupère la scène depuis PocketBase
+let scene: any = null;
+
+try {
+    scene = await sceneID(id);
+} catch (error) {
+    console.error("Erreur lors de la récupération de la scène:", error);
+}
+
+// Si la scène n'existe pas, redirection
+if (!scene) {
+    return Astro.redirect("/scenes/");
+}
+
+// Construit l'URL de la photo
+const photoUrl = scene.photo_scene
+    ? `${PB_URL}/api/files/scene/${scene.id}/${scene.photo_scene}`
+    : null;
+---
+
+<Layout>
+    <!-- Hero Section -->
+    <section
+        class="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden bg-gradient-to-b from-transparent to-[var(--color-red)]"
+    >
+        {
+            photoUrl && (
+                <img
+                    src={photoUrl}
+                    alt={scene.nom_scene}
+                    class="w-full h-full object-cover opacity-60"
+                />
+            )
+        }
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--color-red)]"
+        >
+        </div>
+    </section>
+
+    <!-- Scene Content Section -->
+    <section class="px-4 py-12 md:py-16 lg:py-20 max-w-6xl mx-auto">
+        <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[var(--color-text)] mb-8 text-center"
+        >
+            {scene.nom_scene}
+        </h2>
+
+        <!-- Main Card -->
+        <div class="space-y-8">
+            <!-- Image and Description Card -->
+            <div class="rounded-2xl overflow-hidden shadow-lg bg-white">
+                <div class="flex flex-col lg:flex-row gap-0">
+                    <!-- Image Section -->
+                    <div
+                        class="w-full lg:w-1/2 h-64 lg:h-80 overflow-hidden bg-gray-300"
+                    >
+                        {
+                            photoUrl && (
+                                <img
+                                    src={photoUrl}
+                                    alt={scene.nom_scene}
+                                    class="w-full h-full object-cover"
+                                />
+                            )
+                        }
+                    </div>
+
+                    <!-- Content Section -->
+                    <div
+                        class="w-full lg:w-1/2 flex flex-col justify-between p-6 md:p-8 bg-[#EBD5B3]"
+                    >
+                        <!-- Description -->
+                        <div>
+                            <p
+                                class="text-sm md:text-base text-[#2D2D2D] leading-relaxed"
+                            >
+                                {scene.description_scene}
+                            </p>
+                        </div>
+
+                        <!-- Localisation and Capacity -->
+                        <div
+                            class="mt-6 space-y-3 pt-6 border-t border-[#D4A574]"
+                        >
+                            {
+                                scene.localisation_scene && (
+                                    <div>
+                                        <p class="text-xs font-semibold text-[#8B1538] uppercase">
+                                            Localisation
+                                        </p>
+                                        <p class="text-sm text-[#2D2D2D]">
+                                            {scene.localisation_scene}
+                                        </p>
+                                    </div>
+                                )
+                            }
+                            {
+                                scene.capacite_scene && (
+                                    <div>
+                                        <p class="text-xs font-semibold text-[#8B1538] uppercase">
+                                            Capacité
+                                        </p>
+                                        <p class="text-sm text-[#2D2D2D]">
+                                            {scene.capacite_scene} places
+                                        </p>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="pt-4">
+                <BackButton href="/scenes/" label="Retour aux scènes" />
+            </div>
+        </div>
+    </section>
+</Layout>

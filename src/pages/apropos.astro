@@ -1,0 +1,160 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import ensembleImage from "../assets/img/ensemblebaroque.avif";
+import FaqItem from "../components/FaqItem.astro";
+import Facebook from "../assets/icons/facebook.svg";
+import Instagram from "../assets/icons/insta.svg";
+import TikTok from "../assets/icons/tiktok.svg";
+
+// Structure des valeurs - facilement extensible avec PocketBase
+const values = [
+    {
+        icon: "🤝",
+        title: "Le Partage",
+        description:
+            "Réunir les générations autour de la musique et de la convivialité",
+    },
+    {
+        icon: "🎭",
+        title: "La Tradition",
+        description:
+            "Célébrer l'héritage musical baroque et le patrimoine de Montbéliard",
+    },
+    {
+        icon: "✨",
+        title: "L'Émerveillement",
+        description: "Créer la magie de Noël par la musique et la scénographie",
+    },
+];
+
+// Structure des FAQ - facilement extensible avec PocketBase
+const faqs = [
+    {
+        question: "Quelles sont les dates et horaires des concerts ?",
+        answer: "Les concerts se tiennent du 20 au 23 décembre, chaque soirée à partir de 18h, avec des animations dès 14h dans certains lieux.",
+    },
+    {
+        question: "Comment réserver mes billets ?",
+        answer: 'Via le bouton "Réserver mes billets" sur la page d\'accueil : vous choisissez votre concert et recevez la confirmation immédiatement par e-mail.',
+    },
+    {
+        question:
+            "Les lieux sont-ils accessibles aux personnes à mobilité réduite ?",
+        answer: "Oui.",
+    },
+];
+---
+
+<Layout>
+    <!-- Hero Section -->
+    <section
+        class="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden bg-gradient-to-b from-transparent to-[var(--color-red)]"
+    >
+        <Image
+            src={ensembleImage}
+            alt="Festival Festicloze"
+            class="w-full h-full object-cover opacity-60"
+        />
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--color-red)]"
+        >
+        </div>
+    </section>
+
+    <!-- À Propos Section -->
+    <section class="px-4 py-12 md:py-16 lg:py-20 max-w-6xl mx-auto">
+        <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[var(--color-text)] mb-8 text-center"
+        >
+            La magie de Noël au cœur de la musique baroque
+        </h2>
+
+        <div class="space-y-8">
+            <!-- Introduction Text -->
+            <p
+                class="text-base md:text-lg text-[var(--color-text)] leading-relaxed text-justify"
+            >
+                Festicloze est un festival musical baroque de Noël qui se
+                déroule à Montbéliard pendant trois jours magiques entre le 20
+                et le 23 décembre. Dans les lieux emblématiques de la ville,
+                nous proposons une expérience unique alliant concerts
+                exceptionnels, illuminations féeriques et marché d'artisans
+                locaux.
+            </p>
+
+            <!-- Separator -->
+            <div class="h-px bg-[rgba(212,175,55,0.3)]"></div>
+
+            <!-- Nos Valeurs -->
+            <div>
+                <h3
+                    class="text-2xl md:text-3xl font-serif font-bold text-[var(--color-yellow)] mb-6"
+                >
+                    Nos valeurs
+                </h3>
+                <ul class="space-y-4">
+                    {
+                        values.map((value) => (
+                            <li class="text-base md:text-lg text-[var(--color-text)] leading-relaxed">
+                                <strong class="block md:inline">
+                                    {value.icon} {value.title}
+                                </strong>
+                                <span class="block md:inline md:before:content-['_–_']">
+                                    {value.description}
+                                </span>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <!-- Separator -->
+            <div class="h-px bg-[rgba(212,175,55,0.3)]"></div>
+
+            <!-- Notre Mission -->
+            <div>
+                <h3
+                    class="text-2xl md:text-3xl font-serif font-bold text-[var(--color-yellow)] mb-4"
+                >
+                    Notre mission
+                </h3>
+                <p
+                    class="text-base md:text-lg text-[var(--color-text)] leading-relaxed"
+                >
+                    Rendre la musique baroque accessible à tous dans une
+                    atmosphère festive et familiale, tout en valorisant
+                    l'attractivité culturelle et les savoir-faire locaux de
+                    Montbéliard.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="h-px bg-[rgba(212,175,55,0.3)]"></div>
+
+    <!-- FAQ Section -->
+    <section class="px-4 py-12 md:py-16 lg:py-20 max-w-4xl mx-auto">
+        <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-center text-[var(--color-text)] mb-12"
+        >
+            FAQ
+        </h2>
+
+        <div class="space-y-4">
+            {
+                faqs.map((faq, index) => (
+                    <FaqItem
+                        question={faq.question}
+                        answer={faq.answer}
+                        open={index === 0}
+                    />
+                ))
+            }
+        </div>
+    </section>
+
+    <!-- Spacing Before Footer -->
+    <div class="h-12 md:h-16"></div>
+</Layout>

@@ -1,33 +1,46 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ArtistCard from "../components/ArtistCard.astro";
+import { artistesName } from "../../backend/backend.mjs";
 
-// Imports des images (Astro optimise ces imports)
-import imgBaroque from "../assets/img/ensemblebaroque.avif";
-import imgSoprano from "../assets/img/soprano.avif";
-import imgViolon from "../assets/img/violoniste.avif";
+const PB_URL = "https://festicloze.sacha-martin.fr:443";
 
-// Simulation des données PocketBase (Facile à remplacer plus tard)
-const artists = [
-    {
-        name: "Ensemble Baroque de Paris",
-        role: "Direction musicale",
-        dates: "21 & 22 Décembre",
-        image: imgBaroque,
-    },
-    {
-        name: "Marie-Claire Dubois",
-        role: "Soprano",
-        dates: "20 & 23 Décembre",
-        image: imgSoprano,
-    },
-    {
-        name: "Antoine Lefèvre",
-        role: "Violon baroque",
-        dates: "21 & 23 Décembre",
-        image: imgViolon,
-    },
-];
+// Formate une date en jour + heure lisible
+function formatDate(date: string) {
+    const d = new Date(date);
+    const jour = d.toLocaleDateString("fr-FR", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+    });
+    const heure = d.toLocaleTimeString("fr-FR", {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+    return `${jour} à ${heure}`;
+}
+
+// Récupère les artistes depuis PocketBase
+let artists: any[] = [];
+
+try {
+    const records = await artistesName();
+    artists = records.map((artist: any) => ({
+        id: artist.id,
+        name: artist.nom_artiste,
+        role: artist.genre_artiste,
+        dates: artist.date_representation
+            ? formatDate(artist.date_representation)
+            : "Dates à confirmer",
+        photoUrl: artist.photo_artiste
+            ? `${PB_URL}/api/files/artiste/${artist.id}/${artist.photo_artiste}`
+            : null,
+    }));
+} catch (error) {
+    console.error("Erreur lors de la récupération des artistes:", error);
+}
+
+// Extraire les genres uniques pour les filtres
+const genres = [...new Set(artists.map((a) => a.role).filter(Boolean))];
 ---
 
 <Layout title="Artistes - Festicloze">
@@ -41,23 +54,106 @@ const artists = [
 
         <div class="max-w-6xl mx-auto px-6 py-12">
             <h2
-                class="text-white font-serif text-4xl text-center mb-12 tracking-wide"
+                class="text-white font-serif text-4xl text-center mb-8 tracking-wide"
             >
                 Artistes
             </h2>
 
+            <!-- Filtres par genre -->
+            <div
+                class="flex flex-wrap justify-center gap-3 mb-10"
+                id="genre-filters"
+            >
+                <button
+                    class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-[var(--color-yellow)] text-[var(--color-red)]"
+                    data-genre="all"
+                >
+                    Tous
+                </button>
+                {
+                    genres.map((genre) => (
+                        <button
+                            class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-white/20 text-white hover:bg-[var(--color-yellow)] hover:text-[var(--color-red)]"
+                            data-genre={genre}
+                        >
+                            {genre}
+                        </button>
+                    ))
+                }
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {
                     artists.map((artist) => (
-                        <ArtistCard
-                            name={artist.name}
-                            role={artist.role}
-                            dates={artist.dates}
-                            imagePath={artist.image}
-                        />
+                        <a
+                            href={`/artistes/${artist.id}/`}
+                            class="artist-card"
+                            data-genre={artist.role || ""}
+                        >
+                            <div class="flex flex-col rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-[1.02] cursor-pointer">
+                                <div class="h-48 w-full overflow-hidden bg-gray-300">
+                                    {artist.photoUrl && (
+                                        <img
+                                            src={artist.photoUrl}
+                                            alt={artist.name}
+                                            class="w-full h-full object-cover"
+                                        />
+                                    )}
+                                </div>
+
+                                <div class="bg-[#EBD5B3] p-5 flex flex-col gap-1 min-h-[120px]">
+                                    <h3 class="text-[#8B1538] font-serif text-lg font-bold leading-tight">
+                                        {artist.name}
+                                    </h3>
+                                    <p class="text-[#2D2D2D] text-sm font-medium">
+                                        {artist.role}
+                                    </p>
+                                    <p class="text-[#2D2D2D] text-xs opacity-80">
+                                        {artist.dates}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
                     ))
                 }
             </div>
         </div>
     </main>
 </Layout>
+
+<script>
+    const buttons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".artist-card");
+
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            buttons.forEach((b) => {
+                b.classList.remove("active");
+                b.classList.remove(
+                    "bg-[var(--color-yellow)]",
+                    "text-[var(--color-red)]",
+                );
+                b.classList.add("bg-white/20", "text-white");
+            });
+            btn.classList.add("active");
+            btn.classList.remove("bg-white/20", "text-white");
+            btn.classList.add(
+                "bg-[var(--color-yellow)]",
+                "text-[var(--color-red)]",
+            );
+
+            const genre = btn.getAttribute("data-genre");
+
+            cards.forEach((card) => {
+                if (
+                    genre === "all" ||
+                    card.getAttribute("data-genre") === genre
+                ) {
+                    (card as HTMLElement).style.display = "";
+                } else {
+                    (card as HTMLElement).style.display = "none";
+                }
+            });
+        });
+    });
+</script>
