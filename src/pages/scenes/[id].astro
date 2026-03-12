@@ -45,75 +45,80 @@ const title = `${scene.nom_scene} - Festicloze`;
         </div>
     </section>
 
-    <section class="px-4 py-12 md:py-16 lg:py-20 max-w-6xl mx-auto">
-        <h2
-            class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[var(--color-text)] mb-8 text-center"
-        >
-            {scene.nom_scene}
-        </h2>
+    <section class="bg-[var(--color-red)] px-4 py-12 md:py-16 lg:py-20">
+        <div class="max-w-6xl mx-auto">
+            <h2
+                class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[var(--color-text)] mb-8 text-center"
+            >
+                {scene.nom_scene}
+            </h2>
 
-        <div class="space-y-8">
-            <div class="rounded-2xl overflow-hidden shadow-lg bg-white">
-                <div class="flex flex-col lg:flex-row gap-0">
-                    <div
-                        class="w-full lg:w-1/2 h-64 lg:h-80 overflow-hidden bg-gray-300"
-                    >
-                        {
-                            photoUrl && (
-                                <img
-                                    src={photoUrl}
-                                    alt={scene.nom_scene}
-                                    class="w-full h-full object-cover"
-                                />
-                            )
-                        }
-                    </div>
-
-                    <div
-                        class="w-full lg:w-1/2 flex flex-col justify-between p-6 md:p-8 bg-[#EBD5B3]"
-                    >
-                        <div>
-                            <p
-                                class="text-sm md:text-base text-[#2D2D2D] leading-relaxed"
-                            >
-                                {scene.description_scene}
-                            </p>
+            <div class="space-y-8">
+                <div class="rounded-2xl overflow-hidden shadow-lg bg-[#EBD5B3]">
+                    <div class="flex flex-col lg:flex-row gap-0">
+                        <div
+                            class="w-full lg:w-1/2 h-64 lg:h-auto overflow-hidden bg-[#EBD5B3]"
+                        >
+                            {
+                                photoUrl && (
+                                    <img
+                                        src={photoUrl}
+                                        alt={scene.nom_scene}
+                                        class="w-full h-full object-cover"
+                                    />
+                                )
+                            }
                         </div>
 
                         <div
-                            class="mt-6 space-y-3 pt-6 border-t border-[#D4A574]"
+                            class="w-full lg:w-1/2 flex flex-col justify-between p-6 md:p-8 bg-[#EBD5B3]"
                         >
-                            {
-                                scene.localisation_scene && (
-                                    <div>
-                                        <p class="text-xs font-semibold text-[#8B1538] uppercase">
-                                            Localisation
-                                        </p>
-                                        <p class="text-sm text-[#2D2D2D]">
-                                            {scene.localisation_scene}
-                                        </p>
-                                    </div>
-                                )
-                            }
-                            {
-                                scene.capacite_scene && (
-                                    <div>
-                                        <p class="text-xs font-semibold text-[#8B1538] uppercase">
-                                            Capacité
-                                        </p>
-                                        <p class="text-sm text-[#2D2D2D]">
-                                            {scene.capacite_scene} places
-                                        </p>
-                                    </div>
-                                )
-                            }
+                            <div>
+                                <p
+                                    class="text-sm md:text-base text-[#2D2D2D] leading-relaxed"
+                                >
+                                    {scene.description_scene}
+                                </p>
+                            </div>
+
+                            <div
+                                class="mt-6 space-y-3 pt-6 border-t border-[#D4A574]"
+                            >
+                                {
+                                    scene.localisation_scene && (
+                                        <div>
+                                            <p class="text-xs font-semibold text-[#8B1538] uppercase">
+                                                Localisation
+                                            </p>
+                                            <p class="text-sm text-[#2D2D2D]">
+                                                {typeof scene.localisation_scene ===
+                                                "object"
+                                                    ? `${scene.localisation_scene.lat}, ${scene.localisation_scene.lon}`
+                                                    : scene.localisation_scene}
+                                            </p>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    scene.capacite_scene && (
+                                        <div>
+                                            <p class="text-xs font-semibold text-[#8B1538] uppercase">
+                                                Capacité
+                                            </p>
+                                            <p class="text-sm text-[#2D2D2D]">
+                                                {scene.capacite_scene} places
+                                            </p>
+                                        </div>
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="pt-4">
-                <BackButton href="/scenes/" label="Retour aux scènes" />
+                <div class="pt-4">
+                    <BackButton href="/scenes/" label="Retour aux scènes" />
+                </div>
             </div>
         </div>
     </section>
